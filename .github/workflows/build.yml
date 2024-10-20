@@ -1,39 +1,39 @@
 name: C++ Build and Test
 
-on:
+on: #When to run this code
   push:
     branches:
-      - main
+      - main #When someone pushes this to main branch
   pull_request:
 
 jobs:
   build-ubuntu:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #Where will it run
 
     steps:
-    - name: Checkout code
+    - name: Checkout code #Download our code to somewhere
       uses: actions/checkout@v4
 
     - name: Set up C++ environment
-      run: sudo apt-get install g++
+      run: sudo apt-get install g++ #To compile C++ we need g++
 
     - name: Compile the code
-      run: |
-        g++ -o fibonacci fibonacci.cpp
+      run: |                                        #auto run it
+        g++ -o fibonacci fibonacci.cpp 
 
-    - name: Run the application
+    - name: Run the application                 #Run and check
       run: |
         echo "Running on Ubuntu"
         ./fibonacci  12 # For Ubuntu
 
-    - name: Upload artifacts
+    - name: Upload artifacts            #testing phase - running in ubuntu latest
       uses: actions/upload-artifact@v4
       with:
         name: fibonacci-output
         path: |
           fibonacci
-
-  build-windows:
+#The same programing code is made on run on mulltiple os
+  build-windows:                       #For windows running 
     runs-on: windows-latest
 
     steps:
@@ -41,7 +41,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up C++ environment
-      run: |
+      run: |  
         choco install mingw  # Assumes you have Chocolatey installed on Windows
 
     - name: Compile the code
@@ -54,7 +54,7 @@ jobs:
         echo "Running on Windows"
         .\fibonacci_windows.exe  10 # For Windows
 
-    - name: Upload artifacts
+    - name: Upload artifacts      #uploads resultant file 
       uses: actions/upload-artifact@v4
       with:
         name: fibonacci-output-windows
